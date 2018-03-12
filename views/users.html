@@ -1,10 +1,10 @@
 {% extends "layout.html" %} {% block content %}
-<h3>Pages</h3>
+<h3>Users</h3>
 <hr>
 <ul class="list-unstyled">
   <!-- PLACEHOLDER LIST OF PAGES -->
-  {% for page in pages %}
-  <li><a href="/wiki/{{ page.dataValues.urlTitle }}">{{ page.dataValues.title }}</a></li>
+  {% for user in users %}
+  <li><a href="/user/{{ user.dataValues.urlTitle }}">{{ page.dataValues.title }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

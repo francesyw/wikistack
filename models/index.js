@@ -25,7 +25,7 @@ const Page = db.define('page', {
     type: Sequelize.STRING,
     allowNull: false,
     get() {
-      return '/wiki/' + this.getDataVaule('urlTitle');
+      return '/wiki/' + this.getDataValue('urlTitle');
     }
   },
   content: {
@@ -40,6 +40,23 @@ const Page = db.define('page', {
     defaultValue: Sequelize.NOW
   }
 });
+
+Page.beforeValidate((pageInstance) => {
+  pageInstance.urlTitle = generateUrlTitle(pageInstance.title);
+})
+
+function generateUrlTitle(title) {
+  if (title) {
+    // Removes all non-alphanumeric characters from title
+    // And make whitespace underscore
+    return title.replace(/\s+/g, '_').replace(/\W/g, '');
+  } else {
+    // Generates random 5 letter string
+    return Math.random().toString(36).substring(2, 7);
+  }
+}
+
+Page.belongsTo(User, { as: 'author' });
 
 module.exports = {
   db: db,

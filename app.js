@@ -4,6 +4,11 @@ const app = express();
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const models = require('./models');
+const bodyParser = require('body-parser');
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 nunjucks.configure('views', {noCache: true});
